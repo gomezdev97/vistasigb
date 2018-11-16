@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | Categoria</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/catmain.css" type="text/css">
+
+    <!--Custom script for this template-->
+    <script src="js/catscript.js"></script>
+
+</head>
+
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="../gestionhome/home.html">Sistema Bibliotecario</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#">Circulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#">Estadísticas</a>
+                </li>
+                <li class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gestión
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item active" href="../gestionitem/itemgmt.html">Recursos</a>
+                        <a class="dropdown-item" href="../gestionbiblio/bibliomgmt.html">Bibliotecas</a>
+                        <a class="dropdown-item" href="../gestioncategoria/categmgmt.html">Categorias</a>
+                        <a class="dropdown-item" href="../gestionuser/usermgmt.html">Usuarios</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Gestionar <b>SubCategoría</b></h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+                        <i class="material-icons">&#xE147;</i> <span>Agregar nueva SubCategoria</span></a>
+                    <a href="{% url 'sgb:biblioteca'%}" class="btn btn-danger" data-toggle="modal">
+                        <i class="material-icons"></i> <span>REGRESAR</span></a>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover" id="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Categoria</th>
+                <th>SubCategoria</th>
+                <th>Descripción</th>
+                <th>Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for c in subCat %}
+            <tr>
+                <td>{{ c.idCategoria.idCategoria}}{{ c.idSubCategoria }}</td>
+                <td>{{ c.idCategoria }}</td>
+                <td>{{ c.nombreSubCategoria }}</td>
+                <td>{{ c.desSubCategoria }}</td>
+                <td>
+                    <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+                        <i class="material-icons" data-toggle="tooltip" title="Editar" onclick="obtenerID()">&#xE254;</i></a>
+                    <a href="#deleteEmployeeModal" class="delete" name="eliminar" data-toggle="modal">
+                        <i class="material-icons" data-toggle="tooltip" title="Eliminar" onclick="eliminarID()" >&#xE872;</i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- FORMULARIO AGREGAR -->
+<div id="addEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Categoria</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Categoria</label>
+                    </div>
+                    <div class="form-group">
+                        <select class="selectpicker" name="selector" id="selector">
+                            {% for c in cat %}
+                            <option> {{ c.idCategoria }} - {{ c.nombreCategoria }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre SubCategoria</label>
+                        <input type="text" class="form-control" name="nombreSub" id="nombreSub" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <input type="text" class="form-control" name="descSub" id="descSub" >
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar" onclick="limpiarAgregar()">
+                    <input type="submit" class="btn btn-success" value="Agregar" name="agregar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- FORMULARIO EDITAR -->
+<div id="editEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="get">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar SubCategoria</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <input type="text" name="idEditar" id="idEditar" class="form-control"  readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label>SubCategoria</label>
+                        <input type="text" name="nombre" id="subEditar" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <input type="text" name ="descripcion" id="vacio" class="form-control" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar"  onclick="limpiarCampo()" >
+                    <input type="submit" class="btn btn-info" value="Guardar" name="actualizar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- ELIMINAR FORMULARIO -->
+<div id="deleteEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="get">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar SubCategoria</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Esta seguro de eliminar los siguientes elementos?</p>
+                    <input style="border:none"  type="text" id="eliminarID" name="eliminarID" readonly="readonly"></input>
+                    <br>
+                    <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input type="submit" class="btn btn-danger" value="Eliminar" name="eliminar" >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/creative.min.js"></script>
+
+</body>
+</html>
