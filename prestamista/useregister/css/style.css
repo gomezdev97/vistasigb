@@ -22,14 +22,15 @@ body {
 	background: linear-gradient(to right, #F05F40, #f69f8c, #fcdfd8);
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
 /*form styles*/
-#msform {
+#msform{
 	width: 400px;
 	margin: 100px auto;
 	text-align: center;
 	position: relative;
 }
-#msform fieldset {
+#msform fieldset{
 	background: white;
 	border: 0 none;
 	border-radius: 3px;
@@ -47,7 +48,7 @@ body {
 	display: none;
 }
 /*inputs*/
-#msform input, #msform textarea {
+#msform input, #msform textarea, #msform select {
 	padding: 15px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -57,6 +58,11 @@ body {
 	font-family: montserrat;
 	color: #2C3E50;
 	font-size: 13px;
+}
+#msform select{
+	background-color: white;
+	color: #8c8c8c;
+	padding: 13px;
 }
 /*buttons*/
 #msform .action-button {
